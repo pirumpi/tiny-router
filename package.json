@@ -2,7 +2,7 @@
   "name": "tiny-router",
   "version": "0.0.1",
   "description": "A really small routing library targeted for embed systems. ",
-  "main": "/lib/router.js",
+  "main": "./lib/router.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,6 +11,10 @@
     "Espruino",
     "Tessel"
   ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/pirumpi/tiny-router.git"
+    },
   "author": "Carlos Martin",
   "license": "MIT"
 }
