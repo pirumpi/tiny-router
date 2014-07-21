@@ -1,7 +1,7 @@
 {
   "name": "tiny-router",
-  "version": "0.0.4",
-  "description": "A really small routing library targeted for embed systems. ",
+  "version": "0.0.5",
+  "description": "A really small routing library targeting embedded systems. ",
   "main": "./lib/router.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
