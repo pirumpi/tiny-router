@@ -70,33 +70,30 @@ router.listen(8080);
 
 Methods
 ----------
- - **use:** Allow to overwrite default values configurations: ('static', 'defaultPage') and default methods: ('readFile', 'fileExist') this is useful when different embedded system read the file system differently.
-    ```js
-        //Changing defaultPage
-        router.use('defaultPage', 'default.html');
-    ```
- - **Router:** Return the routing table created from the get, post, put, etc.. methods
-    ```js
-        //Setting Routing table
-        http.createServer(router.Router()).listen(3000);
-    ```
- - **listen(port):** Return a instance of http.createServer(router.Router()).listen(port)
-    ```js
-        //A simple way to create server
-        router.listen(3000);
-    ```
- - **addMethod(method):** Allow the extension of supported method from the supported list: (GET, POST, PUT DELETE)
-    ```js
-        router.addMethod('TRACE');
+**use:** Allow to overwrite default values configurations: ('static', 'defaultPage') and default methods: ('readFile', 'fileExist') this is useful when different embedded system read the file system differently.
+```js
+  router.use('defaultPage', 'default.html');
+```
+**Router:** Return the routing table created from the get, post, put, etc.. methods
+```js
+    http.createServer(router.Router()).listen(3000);
+```
+**listen(port):** Return a instance of http.createServer(router.Router()).listen(port)
+```js
+    router.listen(3000);
+```
+**addMethod(method):** Allow the extension of supported method from the supported list: (GET, POST, PUT DELETE)
 
-        router.trace('/logs', function(req, res){
-            res.send('this are traces');
-        });
-    ```
- - **addMimeType(mimeObject):** It extends the mime types supported by the server. It can use a third party mime type detector by overwriting the getMime method
-    ```js
-        router.addMimeType({ext:'.mp4', mime:'video/mp4'});
-    ```
+```js
+    router.addMethod('TRACE');
+    router.trace('/logs', function(req, res){
+        res.send('this are traces');
+    });
+```
+**addMimeType(mimeObject):** It extends the mime types supported by the server. It can use a third party mime type detector by overwriting the getMime method
+```js
+    router.addMimeType({ext:'.mp4', mime:'video/mp4'});
+```
 
 
 Version
