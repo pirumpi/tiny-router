@@ -1,15 +1,17 @@
 {
   "name": "tiny-router",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A really small routing library targeting embedded systems. ",
   "main": "./lib/router.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "Embed",
+    "Embedded",
     "Espruino",
-    "Tessel"
+    "Tessel",
+    "BeagleBone",
+    "Raspberry Pi"
   ],
     "repository": {
         "type": "git",
