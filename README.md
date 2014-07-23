@@ -31,7 +31,7 @@ var router = require('tiny-router'),
 var lights = { 
     green: tessel.led[0], 
     blue: tessel.led[1], 
-    red: tessel.led[2]
+    red: tessel.led[2],
     amber: tessel.led[3]
 };
 
@@ -48,7 +48,7 @@ router
         res.send({status: state});
     })
     .get('/green/{state}', function(req, res){
-        var state = parseInt(req.body.state);
+        var state = +req.body.state;
         lights.green.write(state);
         res.send({status: state});
     });
