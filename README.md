@@ -160,7 +160,29 @@ Methods
     ```js
         router.addMimeType({ext:'.mp4', mime:'video/mp4'});
     ```
+    
+ - **getMime(file):** Retrieves mime type
+   ```js
+       var type = router.getMimeType('img.jpg');
+   ```
+   
+ - **send(msg):** Sends data
+   ```js
+       var body = ['<!DOCTYPE html>',
+        '<html ng-app="tessel">',
+           '<head>',
+           '</head>',
+        '<body style="background-color:#222;">',
+        '</body>',
+        '</html>'].join('\n');
+    
+        res.send(body);
+   ```
 
+ - **sendImage(img):** Sends an image
+   ```js
+       res.sendImage(image);
+   ```
 
 Version
 ----

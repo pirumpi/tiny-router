@@ -13,6 +13,9 @@
     "BeagleBone",
     "Raspberry Pi"
   ],
+  "hardware": {
+    "./examples": false
+  },
     "repository": {
         "type": "git",
         "url": "https://github.com/pirumpi/tiny-router.git"
