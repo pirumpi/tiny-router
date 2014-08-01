@@ -134,6 +134,7 @@ Methods
         //Changing defaultPage
         router.use('defaultPage', 'default.html');
     ```
+    
     ```js
         //Setting a public folder
         router.use('static', {path: __dirname + '/public'});
@@ -189,6 +190,7 @@ Version
 
 0.0.7: Added the sendImage method. Great for creating app to work with Tessel Camera module
 0.0.8: Added the example folder
+0.0.9: Minor changes to the gitignore file
 
 
 License
