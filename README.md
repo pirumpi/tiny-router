@@ -188,7 +188,7 @@ Version
 ----
 
 0.0.7: Added the sendImage method. Great for creating app to work with Tessel Camera module
-
+0.0.8: Added the example folder
 
 
 License
