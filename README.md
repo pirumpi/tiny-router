@@ -20,6 +20,64 @@ Features
  - Retrieving submitted data from the req.body object
  - Light weight, only 160 lines of code to get an express like experience
 
+ Methods
+ ----------
+  - **use:** Allow to overwrite default values configurations: ('static', 'defaultPage') and default methods: ('readFile', 'fileExist') this is useful when different embedded system read the file system differently.
+     ```js
+         //Changing defaultPage
+         router.use('defaultPage', 'default.html');
+     ```
+
+     ```js
+         //Setting a public folder
+         router.use('static', {path: __dirname + '/public'});
+     ```
+  - **Router:** Return the routing table created from the get, post, put, etc.. methods
+     ```js
+         //Setting Routing table
+         http.createServer(router.Router()).listen(3000);
+     ```
+  - **listen(port):** Return a instance of http.createServer(router.Router()).listen(port)
+     ```js
+         //A simple way to create server
+         router.listen(3000);
+     ```
+  - **addMethod(method):** Allow the extension of supported method from the supported list: (GET, POST, PUT DELETE)
+     ```js
+         router.addMethod('TRACE');
+
+         router.trace('/logs', function(req, res){
+             res.send('this are traces');
+         });
+     ```
+  - **addMimeType(mimeObject):** It extends the mime types supported by the server. It can use a third party mime type detector by overwriting the getMime method
+     ```js
+         router.addMimeType({ext:'.mp4', mime:'video/mp4'});
+     ```
+
+  - **getMime(file):** Retrieves mime type
+    ```js
+        var type = router.getMimeType('img.jpg');
+    ```
+
+  - **send(msg):** Sends data
+    ```js
+        var body = ['<!DOCTYPE html>',
+         '<html ng-app="tessel">',
+            '<head>',
+            '</head>',
+         '<body style="background-color:#222;">',
+         '</body>',
+         '</html>'].join('\n');
+
+         res.send(body);
+    ```
+
+  - **sendImage(img):** Sends an image
+    ```js
+        res.sendImage(image);
+    ```
+
 ##Examples:
 ----------
 
@@ -115,10 +173,75 @@ camera.on('error', function(){
 });
 ```
 
-###Raspberry Pi 
-
+###Raspberry Pi
 ```js
-    coming soon
+    var router = require('tiny-router'),
+        gpio = require('pi-gpio');
+
+    var readPin = function(pin, cb, errCb){
+            gpio.open(pin, 'input', function(err){
+                if(!err){
+                    gpio.read(pin, function(err, value){
+                        if(!err) {
+                            if(cb) { cb(value); }
+                            gpio.close(pin);
+                        }else{
+                            if(errCb) { errCb(); }
+                        }
+                    });
+                }else{
+                    if(errCb) { errCb(); }
+                }
+            });
+        },
+        writePin = function(pin, val, cb, errCb){
+            gpio.open(pin, 'output', function(err) {
+                if(!err){
+                    gpio.write(pin, val, function(err) {
+                        if(!err){
+                            gpio.close(pin);
+                        }else{
+                            if(errCb) { errCb(); }
+                        }
+                    });
+                }else{
+                    if(errCb) { errCb(); }
+                }
+            });
+        };
+
+    router.get('/', function(req, res){
+        res.send('Simple Light API');
+    });
+
+    router.get('/light/status/{pin}', function(req, res){
+        var pin = req.body.pin;
+        readPin(pin, function(val){
+           res.send({pin: pin, status: val, success: true});
+        }, function(){
+            res.send({error: 'Cannot read pin ' + pin, success: false});
+        });
+    });
+
+    router.get('/light/off/{pin}', function(req, res){
+        var pin = req.body.pin;
+        writePin(pin, 1, function(){
+            res.send({success: true, pin: pin, status: 1});
+        }, function(){
+            res.send({error: 'Cannot turn off pin ' + pin, success: false});
+        });
+    });
+
+    router.get('/light/on/{pin}', function(){
+        var pin = req.body.pin;
+        writePin(pin, 0, function(){
+            res.send({success: true, pin: pin, status: 1});
+        }, function(){
+            res.send({error: 'Cannot turn on pin ' + pin, success: false});
+        });
+    });
+
+    router.listen(8080);
 ```
 
 ###BeagleBone 
@@ -127,70 +250,14 @@ camera.on('error', function(){
     coming soon
 ```
 
-Methods
-----------
- - **use:** Allow to overwrite default values configurations: ('static', 'defaultPage') and default methods: ('readFile', 'fileExist') this is useful when different embedded system read the file system differently.
-    ```js
-        //Changing defaultPage
-        router.use('defaultPage', 'default.html');
-    ```
-    
-    ```js
-        //Setting a public folder
-        router.use('static', {path: __dirname + '/public'});
-    ```
- - **Router:** Return the routing table created from the get, post, put, etc.. methods
-    ```js
-        //Setting Routing table
-        http.createServer(router.Router()).listen(3000);
-    ```
- - **listen(port):** Return a instance of http.createServer(router.Router()).listen(port)
-    ```js
-        //A simple way to create server
-        router.listen(3000);
-    ```
- - **addMethod(method):** Allow the extension of supported method from the supported list: (GET, POST, PUT DELETE)
-    ```js
-        router.addMethod('TRACE');
-
-        router.trace('/logs', function(req, res){
-            res.send('this are traces');
-        });
-    ```
- - **addMimeType(mimeObject):** It extends the mime types supported by the server. It can use a third party mime type detector by overwriting the getMime method
-    ```js
-        router.addMimeType({ext:'.mp4', mime:'video/mp4'});
-    ```
-    
- - **getMime(file):** Retrieves mime type
-   ```js
-       var type = router.getMimeType('img.jpg');
-   ```
-   
- - **send(msg):** Sends data
-   ```js
-       var body = ['<!DOCTYPE html>',
-        '<html ng-app="tessel">',
-           '<head>',
-           '</head>',
-        '<body style="background-color:#222;">',
-        '</body>',
-        '</html>'].join('\n');
-    
-        res.send(body);
-   ```
-
- - **sendImage(img):** Sends an image
-   ```js
-       res.sendImage(image);
-   ```
-
 Version
 ----
 
 0.0.7: Added the sendImage method. Great for creating app to work with Tessel Camera module
 0.0.8: Added the example folder
 0.0.9: Minor changes to the gitignore file
+0.1.0 Adding sample code for Raspberry Pi
+
 
 
 License
