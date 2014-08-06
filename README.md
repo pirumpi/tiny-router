@@ -199,6 +199,7 @@ camera.on('error', function(){
                 if(!err){
                     gpio.write(pin, val, function(err) {
                         if(!err){
+                            if(cb) { cb(val); }
                             gpio.close(pin);
                         }else{
                             if(errCb) { errCb(); }
@@ -225,7 +226,7 @@ camera.on('error', function(){
 
     router.get('/light/off/{pin}', function(req, res){
         var pin = req.body.pin;
-        writePin(pin, 1, function(){
+        writePin(pin, 0, function(){
             res.send({success: true, pin: pin, status: 1});
         }, function(){
             res.send({error: 'Cannot turn off pin ' + pin, success: false});
@@ -234,8 +235,8 @@ camera.on('error', function(){
 
     router.get('/light/on/{pin}', function(){
         var pin = req.body.pin;
-        writePin(pin, 0, function(){
-            res.send({success: true, pin: pin, status: 1});
+        writePin(pin, 1, function(val){
+            res.send({success: true, pin: pin, status: val});
         }, function(){
             res.send({error: 'Cannot turn on pin ' + pin, success: false});
         });
