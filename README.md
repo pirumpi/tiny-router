@@ -22,7 +22,7 @@ Features
 
  Methods
  ----------
-  - **use:** Allow to overwrite default values configurations: ('static', 'defaultPage') and default methods: ('readFile', 'fileExist') this is useful when different embedded system read the file system differently.
+  - **use:** Allow to overwrite default values configurations: ('static', 'defaultPage') and default methods: ('readFile', 'fileExist') this is useful when different embedded system read the file system differently. Also it gives access to the request and response object before the routing tables are created.
      ```js
          //Changing defaultPage
          router.use('defaultPage', 'default.html');
@@ -32,17 +32,28 @@ Features
          //Setting a public folder
          router.use('static', {path: __dirname + '/public'});
      ```
+     
+     ```js
+        //Creating a URL logger
+        router.use(function(req, res, next){
+            console.log('URL: ', req.url);
+            next();
+        });
+     ```
   - **Router:** Return the routing table created from the get, post, put, etc.. methods
+  
      ```js
          //Setting Routing table
          http.createServer(router.Router()).listen(3000);
      ```
   - **listen(port):** Return a instance of http.createServer(router.Router()).listen(port)
+  
      ```js
          //A simple way to create server
          router.listen(3000);
      ```
   - **addMethod(method):** Allow the extension of supported method from the supported list: (GET, POST, PUT DELETE)
+  
      ```js
          router.addMethod('TRACE');
 
@@ -258,6 +269,7 @@ Version
 0.0.8: Added the example folder
 0.0.9: Minor changes to the gitignore file
 0.1.0 Adding sample code for Raspberry Pi
+0.1.2 Changing internal method to Async in order to interact with the filesystem.
 
 
 
