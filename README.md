@@ -100,7 +100,7 @@ var router = require('tiny-router'),
 var lights = { 
     green: tessel.led[0], 
     blue: tessel.led[1], 
-    red: tessel.led[2]
+    red: tessel.led[2],
     amber: tessel.led[3]
 };
 
