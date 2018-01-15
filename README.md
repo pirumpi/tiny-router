@@ -265,7 +265,7 @@ Version
 0.0.9: Minor changes to the gitignore file
 0.1.0 Adding sample code for Raspberry Pi
 0.1.2 Changing internal method to Async in order to interact with the filesystem.
-0.1.6 Adding stream support and other engine templates
+0.1.5 Adding stream support and other engine templates
 
 
 
