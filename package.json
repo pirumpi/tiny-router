@@ -1,6 +1,6 @@
 {
   "name": "tiny-router",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "A really small routing library targeting embedded systems. ",
   "main": "./lib/router.js",
   "scripts": {
