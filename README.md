@@ -89,10 +89,10 @@ Features
         res.sendImage(image);
     ```
 
-##Examples:
+## Examples:
 ----------
 
-###Tessel lights
+### Tessel lights
 ```js
 var router = require('tiny-router'),
     tessel = require('tessel');
@@ -124,7 +124,7 @@ router
 
 router.listen(8080);
 ```
-###Tessel Camera Module
+### Tessel Camera Module
 ```js
 var tessel = require('tessel'),
     router = require('tiny-router'),
@@ -184,7 +184,7 @@ camera.on('error', function(){
 });
 ```
 
-###Raspberry Pi
+### Raspberry Pi
 ```js
     var router = require('tiny-router'),
         gpio = require('pi-gpio');
